@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +67,7 @@
         /* Main Content */
         main {
             padding: 20px;
-            margin-bottom: 50px; /* Added margin to create space before the footer */
+            margin-bottom: 50px;
         }
 
         h2 {
@@ -85,7 +87,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            margin-bottom: 50px; /* Added margin to increase space between products and footer */
+            margin-bottom: 50px;
         }
 
         .product-item {
@@ -130,6 +132,24 @@
             color: var(--text-color);
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 8px 16px var(--shadow-color);
+        }
+
+        /* Styled 'Eliminar' button */
+        .eliminar-btn {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .eliminar-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
         }
 
         /* Select styling in modal */
@@ -181,11 +201,6 @@
 
         #cart-items p {
             margin-bottom: 10px;
-        }
-
-        #notes, #delivery-address {
-            margin-bottom: 10px;
-            font-size: 0.9em;
         }
 
         /* Footer */
@@ -246,6 +261,24 @@
             transform: translateY(-3px);
         }
 
+        .zoomed-image {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1003;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .zoomed-image.show {
+            display: block;
+        }
+
         /* MercadoPago Button */
         .mercadopago-btn {
             padding: 10px 20px;
@@ -260,7 +293,7 @@
             display: block;
             text-align: center;
             margin-top: 10px;
-            box-shadow: 0 4px 8px var (--shadow-color);
+            box-shadow: 0 4px 8px var(--shadow-color);
         }
 
         .mercadopago-btn:hover {
@@ -319,6 +352,7 @@
             height: 100%;
             object-fit: contain;
             border-radius: 12px;
+            cursor: pointer;
         }
 
         .carousel-controls {
@@ -363,12 +397,13 @@
         }
     </style>
 </head>
+
 <body data-theme="light">
     <header>
         <img src="https://i.imgur.com/1FJarSM.png" alt="Purple Soda T-shirts Logo">
         <div class="header-info">
-          <h3>🥤 PURPLE SODA 🍇</h3><br>
-          <p>Camisetas hechas 100% en Colombia 🌈</p>
+            <h3>🥤 PURPLE SODA 🍇</h3><br>
+            <p>Camisetas hechas 100% en Colombia 🌈</p>
             <p>100% Algodón 🌱</p>
             <p>Estampados en serigrafía de alta calidad 🎨</p>
             <p>Diseños originales ✨</p>
@@ -399,7 +434,8 @@
         <div id="menu" class="product-grid"></div>
     </main>
     <footer>
-      <p>Hecho con 💖 </p><p> Purple Soda ® </p>
+        <p>Hecho con 💖 </p>
+        <p> Purple Soda ® </p>
     </footer>
 
     <!-- Carousel Modal for Images and Product Details -->
@@ -427,16 +463,17 @@
             </select>
             <button class="choose-btn" id="add-to-cart-btn">Añadir al Carrito</button>
         </div>
+        <img id="zoomed-image" class="zoomed-image" />
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const products = [
-                { name: "VULNERABILITY", img: "https://i.imgur.com/QJsfFng.jpeg", images: ["https://i.imgur.com/Mjxpxs2.jpeg","https://i.imgur.com/QJsfFng.jpeg", "https://i.imgur.com/C98lNyS.jpeg", "https://i.imgur.com/JdNqeYU.jpeg","https://i.imgur.com/uIqBhIy.jpeg", "https://i.imgur.com/fSrSrmZ.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Blanco" },
-              
-                { name: "SENTIR SABER", img: "https://i.imgur.com/Rj3ygI1.jpeg", images: ["https://i.imgur.com/D7vps6t.jpeg","https://i.imgur.com/8vn9pqu.jpeg","https://i.imgur.com/7jTYe78.jpeg","https://i.imgur.com/Rj3ygI1.jpeg","https://i.imgur.com/1oomF8e.jpeg,","https://i.imgur.com/kiA3IOr.jpeg","https://i.imgur.com/IyiytBd.jpeg","https://i.imgur.com/VzkGkGX.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Negro" },
-              
-                { name: "COSMIC ENERGY", img: "https://i.imgur.com/qBUEYRy.png", images: ["https://i.imgur.com/pi1zQo9.png","https://i.imgur.com/KBLkmGR.jpeg","https://i.imgur.com/pW36dBc.png","https://i.imgur.com/4RF2JJ3.jpeg","https://i.imgur.com/O9Qx2K1.png","https://i.imgur.com/qBUEYRy.png"], price: 75000, includes: "Oversize fit, Cuello en rib 2cm, Color: Blanco" }
+                { name: "VULNERABILITY", img: "https://i.imgur.com/QJsfFng.jpeg", images: ["https://i.imgur.com/Mjxpxs2.jpeg", "https://i.imgur.com/QJsfFng.jpeg", "https://i.imgur.com/C98lNyS.jpeg", "https://i.imgur.com/JdNqeYU.jpeg", "https://i.imgur.com/uIqBhIy.jpeg", "https://i.imgur.com/fSrSrmZ.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Blanco" },
+
+                { name: "SENTIR SABER", img: "https://i.imgur.com/Rj3ygI1.jpeg", images: ["https://i.imgur.com/D7vps6t.jpeg", "https://i.imgur.com/8vn9pqu.jpeg", "https://i.imgur.com/7jTYe78.jpeg", "https://i.imgur.com/Rj3ygI1.jpeg", "https://i.imgur.com/1oomF8e.jpeg", "https://i.imgur.com/kiA3IOr.jpeg", "https://i.imgur.com/IyiytBd.jpeg", "https://i.imgur.com/VzkGkGX.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Negro" },
+
+                { name: "COSMIC ENERGY", img: "https://i.imgur.com/qBUEYRy.png", images: ["https://i.imgur.com/pi1zQo9.png", "https://i.imgur.com/KBLkmGR.jpeg", "https://i.imgur.com/pW36dBc.png", "https://i.imgur.com/4RF2JJ3.jpeg", "https://i.imgur.com/O9Qx2K1.png", "https://i.imgur.com/qBUEYRy.png"], price: 75000, includes: "Oversize fit, Cuello en rib 2cm, Color: Blanco" }
             ];
 
             const cart = [];
@@ -462,11 +499,11 @@
             }
 
             // Show product modal
-            window.showProductModal = function(index) {
+            window.showProductModal = function (index) {
                 selectedProduct = products[index];
                 const carouselImages = document.getElementById('carousel-images');
                 const productDetails = document.getElementById('product-details');
-                carouselImages.innerHTML = selectedProduct.images.map(img => `<img src="${img}" alt="${selectedProduct.name}">`).join('');
+                carouselImages.innerHTML = selectedProduct.images.map(img => `<img src="${img}" alt="${selectedProduct.name}" onclick="showZoomedImage('${img}')">`).join('');
                 productDetails.innerHTML = `
                     <h3>${selectedProduct.name} 🌟</h3>
                     <p>💲Precio: $${selectedProduct.price.toLocaleString("es-CO")} COP</p>
@@ -477,6 +514,16 @@
                 toggleProductModal();
             };
 
+            // Zoom image
+            window.showZoomedImage = function (img) {
+                const zoomedImage = document.getElementById('zoomed-image');
+                zoomedImage.src = img;
+                zoomedImage.classList.add('show');
+                setTimeout(() => {
+                    zoomedImage.classList.remove('show');
+                }, 2000); // Hide zoomed image after 2 seconds
+            };
+
             // Carousel functionality
             function updateCarousel() {
                 const carouselImages = document.getElementById('carousel-images').children;
@@ -485,13 +532,13 @@
                 }
             }
 
-            window.nextSlide = function() {
+            window.nextSlide = function () {
                 const carouselImages = document.getElementById('carousel-images').children;
                 currentSlide = (currentSlide + 1) % carouselImages.length;
                 updateCarousel();
             };
 
-            window.prevSlide = function() {
+            window.prevSlide = function () {
                 const carouselImages = document.getElementById('carousel-images').children;
                 currentSlide = (currentSlide - 1 + carouselImages.length) % carouselImages.length;
                 updateCarousel();
@@ -515,7 +562,7 @@
             });
 
             // Remove product from cart
-            window.removeFromCart = function(productName, size) {
+            window.removeFromCart = function (productName, size) {
                 const productIndex = cart.findIndex(item => item.name === productName && item.size === size);
                 if (productIndex !== -1) {
                     cart.splice(productIndex, 1);
@@ -531,7 +578,7 @@
                 total = 0;
 
                 cart.forEach(item => {
-                    cartItemsSection.innerHTML += `<p>${item.name} (Talla: ${item.size}) - $${item.price.toLocaleString("es-CO")} COP x ${item.quantity} = $${(item.price * item.quantity).toLocaleString("es-CO")} COP <button onclick="removeFromCart('${item.name}', '${item.size}')">Eliminar</button></p>`;
+                    cartItemsSection.innerHTML += `<p>${item.name} (Talla: ${item.size}) - $${item.price.toLocaleString("es-CO")} COP x ${item.quantity} = $${(item.price * item.quantity).toLocaleString("es-CO")} COP <button class="eliminar-btn" onclick="removeFromCart('${item.name}', '${item.size}')">Eliminar</button></p>`;
                     total += item.price * item.quantity;
                 });
 
@@ -555,7 +602,7 @@
             }
 
             // Confirm order via WhatsApp
-            window.confirmByWhatsApp = function() {
+            window.confirmByWhatsApp = function () {
                 const deliveryAddress = document.getElementById('delivery-address').value;
                 const notes = document.getElementById('notes').value;
                 const whatsappMessage = cart.map(item => `${item.quantity} x ${item.name} (Talla: ${item.size}) - $${item.price.toLocaleString("es-CO")} COP`).join('\n');
@@ -577,7 +624,7 @@
             modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'block' : 'none';
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const productModal = document.getElementById('product-modal');
             if (event.target === productModal) {
                 productModal.style.display = 'none';
@@ -586,4 +633,5 @@
     </script>
   <chat-bot platform_id="f4d8f664-c2c4-4ec2-8bee-a0e80d835c34" user_id="07cf01ec-843c-4c57-bff4-0fd994f1057a" chatbot_id="30cbb0cc-39e2-4d27-a57d-f2c6fcbee1de"><a href="https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral">chatsimple</a></chat-bot><script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 </body>
+
 </html>
