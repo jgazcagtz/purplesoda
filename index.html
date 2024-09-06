@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purple Soda T-shirts</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #9748f9;
+            --secondary-color: #f584a0;
+            --accent-color: #e6d2f7;
+            --background-color: #eeede8;
+            --text-color: #333;
+            --white: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            border-bottom: 2px solid var(--primary-color);
+            box-shadow: 0 4px 8px var(--shadow-color);
+            top: 0;
+            z-index: 1000;
+        }
+
+        header img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .header-info {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .header-info p {
+            margin-bottom: 10px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--white);
+            font-weight: 700;
+            margin: 20px 0;
+            background-color: var(--primary-color);
+            padding: 10px 10px;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 20px auto;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-item {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: var(--white);
+            box-shadow: 0 4px 8px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-item img {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .choose-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .choose-btn:hover {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 16px var(--shadow-color);
+        }
+
+        /* Cart Styles */
+        #cart {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 1000;
+            width: 350px;
+            max-width: 90%;
+            display: none;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        #cart h3 {
+            margin-bottom: 20px;
+        }
+
+        #cart-total {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: var(--text-color);
+        }
+
+        #cart-items p {
+            margin-bottom: 10px;
+        }
+
+        #notes, #delivery-address {
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 5px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            border-top: 2px solid var(--secondary-color);
+            box-shadow: 0 -4px 8px var(--shadow-color);
+        }
+
+        /* Cart Button */
+        #cart-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            z-index: 1001;
+        }
+
+        #cart-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .whatsapp-btn {
+            padding: 10px 20px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1ebe57;
+            transform: translateY(-3px);
+        }
+
+        /* MercadoPago Button */
+        .mercadopago-btn {
+            padding: 10px 20px;
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .mercadopago-btn:hover {
+            background-color: #008ba3;
+            transform: translateY(-3px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            height: 200px;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+
+        .carousel-control {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 10px;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .carousel-control:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            header img {
+                max-width: 350px;
+            }
+
+            .carousel {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header img {
+                max-width: 300px;
+            }
+
+            .carousel {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <header>
+        <img src="https://i.imgur.com/1FJarSM.png" alt="Purple Soda T-shirts Logo">
+        <div class="header-info">
+            <p>Camisetas hechas 100% en Colombia</p>
+            <p>100% Algodón</p>
+            <p>Estampados en serigrafía de alta calidad</p>
+            <p>Diseños originales</p>
+            <p>Empaques BIOdegradables, hechos en fibra de maíz por una empresa Colombiana</p>
+            <p>Tallas disponibles: S, M, L, XL</p>
+        </div>
+    </header>
+    <main>
+        <div id="cart">
+            <h3>🛒 Carrito</h3>
+            <div id="cart-items"></div>
+            <p id="cart-total">Total: $0.00</p>
+            <p>Dirección de entrega (no incluye envío):</p>
+            <textarea id="delivery-address" placeholder="Ingrese la dirección de entrega"></textarea>
+            <p>Notas:</p>
+            <textarea id="notes" placeholder="Ingrese notas adicionales"></textarea>
+            <p>Pagar con PayPal:</p><br>
+            <div id="paypal-form"></div>
+            <p>Pagar con Mercado Pago:</p>
+            <a href="https://link.mercadopago.com.mx/segurodeviajes" class="mercadopago-btn" target="_blank">Pagar con Mercado Pago</a>
+            <button class="whatsapp-btn" onclick="confirmByWhatsApp()">Confirmar por WhatsApp</button>
+        </div>
+        <button id="cart-btn" onclick="toggleCart()">🛒</button>
+
+        <div class="menu-title-container">
+            <h2>👕 Productos Destacados</h2>
+        </div>
+        <div id="menu" class="product-grid"></div>
+    </main>
+    <footer>
+        <p>Hechas con amor en Colombia - 100% Algodón 🌱</p>
+    </footer>
+
+    <!-- Carousel Modal for Images and Product Details -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleProductModal()">&times;</span>
+            <div class="carousel" id="carousel">
+                <button class="carousel-control" id="prev-btn" onclick="prevSlide()">❮</button>
+                <div class="carousel-images" id="carousel-images"></div>
+                <button class="carousel-control" id="next-btn" onclick="nextSlide()">❯</button>
+            </div>
+            <div id="product-details"></div>
+            <select id="product-size">
+                <option value="S">Talla S</option>
+                <option value="M">Talla M</option>
+                <option value="L">Talla L</option>
+                <option value="XL">Talla XL</option>
+            </select>
+            <select id="product-quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button class="choose-btn" id="add-to-cart-btn">Añadir al Carrito</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const products = [
+                { name: "VULNERABILITY", img: "https://i.imgur.com/Mjxpxs2.jpeg", images: ["https://i.imgur.com/Mjxpxs2.jpeg", "https://i.imgur.com/C98lNyS.jpeg", "https://i.imgur.com/JdNqeYU.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Blanco" },
+                { name: "SENTIR SABER", img: "https://i.imgur.com/ZFrU7JT.jpeg", images: ["https://i.imgur.com/ZFrU7JT.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Negro" },
+                { name: "COSMIC ENERGY", img: "https://i.imgur.com/ZFrU7JT.jpeg", images: ["https://i.imgur.com/ZFrU7JT.jpeg"], price: 75000, includes: "Oversize fit, Cuello en rib 2cm, Color: Blanco" }
+            ];
+
+            const cart = [];
+            let total = 0;
+            let currentSlide = 0;
+            let selectedProduct = null;
+
+            // Render products
+            function displayProducts() {
+                const menu = document.getElementById('menu');
+                menu.innerHTML = '';
+                products.forEach((product, index) => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item');
+                    productItem.innerHTML = `
+                        <img src="${product.img}" alt="${product.name}" onclick="showProductModal(${index})">
+                        <h3>${product.name}</h3>
+                        <p>$${product.price.toLocaleString("es-CO")} COP</p>
+                        <p>${product.includes}</p>
+                    `;
+                    menu.appendChild(productItem);
+                });
+            }
+
+            // Show product modal
+            window.showProductModal = function(index) {
+                selectedProduct = products[index];
+                const carouselImages = document.getElementById('carousel-images');
+                const productDetails = document.getElementById('product-details');
+                carouselImages.innerHTML = selectedProduct.images.map(img => `<img src="${img}" alt="${selectedProduct.name}">`).join('');
+                productDetails.innerHTML = `
+                    <h3>${selectedProduct.name}</h3>
+                    <p>Precio: $${selectedProduct.price.toLocaleString("es-CO")} COP</p>
+                    <p>${selectedProduct.includes}</p>
+                `;
+                currentSlide = 0;
+                updateCarousel();
+                toggleProductModal();
+            };
+
+            // Carousel functionality
+            function updateCarousel() {
+                const carouselImages = document.getElementById('carousel-images').children;
+                for (let i = 0; i < carouselImages.length; i++) {
+                    carouselImages[i].style.display = i === currentSlide ? 'block' : 'none';
+                }
+            }
+
+            window.nextSlide = function() {
+                const carouselImages = document.getElementById('carousel-images').children;
+                currentSlide = (currentSlide + 1) % carouselImages.length;
+                updateCarousel();
+            };
+
+            window.prevSlide = function() {
+                const carouselImages = document.getElementById('carousel-images').children;
+                currentSlide = (currentSlide - 1 + carouselImages.length) % carouselImages.length;
+                updateCarousel();
+            };
+
+            // Add product to cart
+            document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+                const quantity = parseInt(document.getElementById('product-quantity').value);
+                const size = document.getElementById('product-size').value;
+                const existingProduct = cart.find(item => item.name === selectedProduct.name && item.size === size);
+
+                if (existingProduct) {
+                    existingProduct.quantity += quantity;
+                } else {
+                    cart.push({ name: selectedProduct.name, price: selectedProduct.price, size, quantity });
+                }
+
+                updateCart();
+                toggleProductModal();
+                alert(`Producto agregado al carrito: ${selectedProduct.name} (Talla: ${size}) x ${quantity}`);
+            });
+
+            // Remove product from cart
+            window.removeFromCart = function(productName, size) {
+                const productIndex = cart.findIndex(item => item.name === productName && item.size === size);
+                if (productIndex !== -1) {
+                    cart.splice(productIndex, 1);
+                }
+                updateCart();
+            };
+
+            // Update cart
+            function updateCart() {
+                const cartItemsSection = document.getElementById('cart-items');
+                const cartTotal = document.getElementById('cart-total');
+                cartItemsSection.innerHTML = '';
+                total = 0;
+
+                cart.forEach(item => {
+                    cartItemsSection.innerHTML += `<p>${item.name} (Talla: ${item.size}) - $${item.price.toLocaleString("es-CO")} COP x ${item.quantity} = $${(item.price * item.quantity).toLocaleString("es-CO")} COP <button onclick="removeFromCart('${item.name}', '${item.size}')">Eliminar</button></p>`;
+                    total += item.price * item.quantity;
+                });
+
+                cartTotal.textContent = `Total: $${total.toLocaleString("es-CO")} COP`;
+                updatePayPalForm(total);
+            }
+
+            // Update PayPal form
+            function updatePayPalForm(totalAmount) {
+                const paypalForm = document.getElementById('paypal-form');
+                paypalForm.innerHTML = `
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                        <input type="hidden" name="cmd" value="_xclick" />
+                        <input type="hidden" name="business" value="tu_email_paypal@gmail.com" />
+                        <input type="hidden" name="currency_code" value="COP" />
+                        <input type="hidden" name="amount" value="${totalAmount}" />
+                        <input type="hidden" name="item_name" value="${cart.map(item => `${item.name} (${item.size}, ${item.quantity})`).join(', ')}" />
+                        <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-44px.png" border="0" name="submit" title="Pay with PayPal" alt="PayPal - The safer, easier way to pay online!" />
+                    </form>
+                `;
+            }
+
+            // Confirm order via WhatsApp
+            window.confirmByWhatsApp = function() {
+                const deliveryAddress = document.getElementById('delivery-address').value;
+                const notes = document.getElementById('notes').value;
+                const whatsappMessage = cart.map(item => `${item.quantity} x ${item.name} (Talla: ${item.size}) - $${item.price.toLocaleString("es-CO")} COP`).join('\n');
+                const finalMessage = `Pedido:\n${whatsappMessage}\nTotal: $${total.toLocaleString("es-CO")} COP\nDirección de entrega: ${deliveryAddress}\nNotas: ${notes}`;
+                const whatsappUrl = `https://wa.me/34635365724?text=${encodeURIComponent(finalMessage)}`;
+                window.open(whatsappUrl, '_blank');
+            };
+
+            displayProducts(); // Initial product render
+        });
+
+        function toggleCart() {
+            const cart = document.getElementById('cart');
+            cart.style.display = cart.style.display === 'none' || cart.style.display === '' ? 'block' : 'none';
+        }
+
+        function toggleProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'block' : 'none';
+        }
+
+        window.onclick = function(event) {
+            const productModal = document.getElementById('product-modal');
+            if (event.target === productModal) {
+                productModal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
