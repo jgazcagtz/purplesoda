@@ -66,6 +66,7 @@
         /* Main Content */
         main {
             padding: 20px;
+            margin-bottom: 50px; /* Added margin to create space before the footer */
         }
 
         h2 {
@@ -85,6 +86,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+            margin-bottom: 50px; /* Added margin to increase space between products and footer */
         }
 
         .product-item {
@@ -173,7 +175,7 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 5px;
+            padding: 10px;
             background-color: var(--primary-color);
             color: var(--white);
             position: fixed;
@@ -349,12 +351,12 @@
     <header>
         <img src="https://i.imgur.com/1FJarSM.png" alt="Purple Soda T-shirts Logo">
         <div class="header-info">
-            <p>Camisetas hechas 100% en Colombia</p>
-            <p>100% Algodón</p>
-            <p>Estampados en serigrafía de alta calidad</p>
-            <p>Diseños originales</p>
-            <p>Empaques BIOdegradables, hechos en fibra de maíz por una empresa Colombiana</p>
-            <p>Tallas disponibles: S, M, L, XL</p>
+            <p>Camisetas hechas 100% en Colombia 💜</p>
+            <p>100% Algodón 👕</p>
+            <p>Estampados en serigrafía de alta calidad 🎨</p>
+            <p>Diseños originales ✨</p>
+            <p>Empaques BIOdegradables, hechos en fibra de maíz 🌽</p>
+            <p>Tallas disponibles: S, M, L, XL 🌈</p>
         </div>
     </header>
     <main>
@@ -375,12 +377,12 @@
         <button id="cart-btn" onclick="toggleCart()">🛒</button>
 
         <div class="menu-title-container">
-            <h2>👕 Productos Destacados</h2>
+            <h2>👕 Productos Destacados 🌟</h2>
         </div>
         <div id="menu" class="product-grid"></div>
     </main>
     <footer>
-        <p>Hechas con amor en Colombia - 100% Algodón 🌱</p>
+        <p>Hecho con 💖 en Colombia - 100% Algodón 🌱</p>
     </footer>
 
     <!-- Carousel Modal for Images and Product Details -->
@@ -432,9 +434,9 @@
                     productItem.classList.add('product-item');
                     productItem.innerHTML = `
                         <img src="${product.img}" alt="${product.name}" onclick="showProductModal(${index})">
-                        <h3>${product.name}</h3>
-                        <p>$${product.price.toLocaleString("es-CO")} COP</p>
-                        <p>${product.includes}</p>
+                        <h3>${product.name} 💜</h3>
+                        <p>💲$${product.price.toLocaleString("es-CO")} COP</p>
+                        <p>${product.includes} 💖</p>
                     `;
                     menu.appendChild(productItem);
                 });
@@ -447,9 +449,9 @@
                 const productDetails = document.getElementById('product-details');
                 carouselImages.innerHTML = selectedProduct.images.map(img => `<img src="${img}" alt="${selectedProduct.name}">`).join('');
                 productDetails.innerHTML = `
-                    <h3>${selectedProduct.name}</h3>
-                    <p>Precio: $${selectedProduct.price.toLocaleString("es-CO")} COP</p>
-                    <p>${selectedProduct.includes}</p>
+                    <h3>${selectedProduct.name} 🌟</h3>
+                    <p>💲Precio: $${selectedProduct.price.toLocaleString("es-CO")} COP</p>
+                    <p>${selectedProduct.includes} ✨</p>
                 `;
                 currentSlide = 0;
                 updateCarousel();
