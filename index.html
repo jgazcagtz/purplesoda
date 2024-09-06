@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -416,7 +415,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const products = [
-                { name: "VULNERABILITY", img: "https://i.imgur.com/Mjxpxs2.jpeg", images: ["https://i.imgur.com/Mjxpxs2.jpeg", "https://i.imgur.com/C98lNyS.jpeg", "https://i.imgur.com/JdNqeYU.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Blanco" },
+                { name: "VULNERABILITY", img: "https://i.imgur.com/QJsfFng.jpeg", images: ["https://i.imgur.com/Mjxpxs2.jpeg","https://i.imgur.com/QJsfFng.jpeg", "https://i.imgur.com/C98lNyS.jpeg", "https://i.imgur.com/JdNqeYU.jpeg","https://i.imgur.com/uIqBhIy.jpeg", "https://i.imgur.com/fSrSrmZ.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Blanco" },
                 { name: "SENTIR SABER", img: "https://i.imgur.com/ZFrU7JT.jpeg", images: ["https://i.imgur.com/ZFrU7JT.jpeg"], price: 60000, includes: "Regular fit, Algodón peinado, Color: Negro" },
                 { name: "COSMIC ENERGY", img: "https://i.imgur.com/ZFrU7JT.jpeg", images: ["https://i.imgur.com/ZFrU7JT.jpeg"], price: 75000, includes: "Oversize fit, Cuello en rib 2cm, Color: Blanco" }
             ];
@@ -527,7 +526,7 @@
                 paypalForm.innerHTML = `
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                         <input type="hidden" name="cmd" value="_xclick" />
-                        <input type="hidden" name="business" value="tu_email_paypal@gmail.com" />
+                        <input type="hidden" name="business" value="danielavasquez529@gmail.com" />
                         <input type="hidden" name="currency_code" value="COP" />
                         <input type="hidden" name="amount" value="${totalAmount}" />
                         <input type="hidden" name="item_name" value="${cart.map(item => `${item.name} (${item.size}, ${item.quantity})`).join(', ')}" />
