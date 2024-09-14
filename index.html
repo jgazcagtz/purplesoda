@@ -1,10 +1,10 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purple Soda T-shirts</title>
-    
-    
+
     <!-- Load the custom Cirka font -->
     <style>
         @font-face {
@@ -60,28 +60,6 @@
             }
         }
 
-        @keyframes moveRight {
-            0% {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes moveLeft {
-            0% {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
         @keyframes pop {
             0% {
                 transform: scale(0.9);
@@ -91,15 +69,6 @@
             }
             100% {
                 transform: scale(1);
-            }
-        }
-
-        @keyframes rotate360 {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
             }
         }
 
@@ -118,7 +87,7 @@
 
         header img {
             width: 100%;
-            max-width: 350px;
+            max-width: 400px;
             height: auto;
             object-fit: cover;
             margin-bottom: 10px;
@@ -159,7 +128,6 @@
             box-shadow: 0 2px 4px var(--shadow-color);
             word-spacing: 5px;
             letter-spacing: 2px;
-            animation: rotate360 2s ease-out;
         }
 
         .product-grid {
@@ -180,18 +148,34 @@
         }
 
         .product-item:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-            animation: pop 0.5s ease-in-out;
         }
 
         .product-item img {
-            width: 120px;
-            height: 120px;
+            width: 100%;
+            height: auto;
+            max-height: 300px;
             border-radius: 12px;
             object-fit: cover;
             cursor: pointer;
-            animation: pop 0.7s ease-in-out;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-item h3 {
+            margin-top: 15px;
+            font-size: 1.5em;
+            color: var(--primary-color);
+        }
+
+        .product-item p {
+            margin-top: 10px;
+            font-size: 1em;
+            color: var(--text-color);
         }
 
         .choose-btn {
@@ -203,14 +187,14 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 1em;
-            font-family: 'Cirka'; /* Same font as "Nuestro Catálogo" */
-            font-weight: 700; /* Match heading weight */
-            letter-spacing: 2px; /* Same letter-spacing as "Nuestro Catálogo" */
-            word-spacing: 5px; /* Same word-spacing as "Nuestro Catálogo" */
+            font-family: 'Cirka';
+            font-weight: 700;
+            letter-spacing: 2px;
+            word-spacing: 5px;
             transition: background-color 0.3s ease, transform 0.3s ease;
             text-decoration: none;
             box-shadow: 0 4px 8px var(--shadow-color);
-            animation: pop 0.8s ease-in-out;
+            margin-top: 15px;
         }
 
         .choose-btn:hover {
@@ -231,6 +215,7 @@
             font-size: 0.9em;
             transition: background-color 0.3s ease, transform 0.3s ease;
             box-shadow: 0 4px 8px var(--shadow-color);
+            margin-left: 10px;
         }
 
         .eliminar-btn:hover {
@@ -352,13 +337,14 @@
         }
 
         .zoomed-image {
-            position: absolute;
-            top: 50px;
+            position: fixed;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             z-index: 1003;
-            width: 300px;
-            height: 300px;
+            width: 80%;
+            max-width: 600px;
+            height: auto;
             object-fit: cover;
             border-radius: 12px;
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
@@ -400,24 +386,25 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 60px;
         }
 
         .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
+            background-color: var(--accent-color);
+            margin: auto;
             padding: 20px;
-            border: 1px solid #888;
             width: 90%;
-            max-width: 500px;
+            max-width: 600px;
             border-radius: 12px;
             position: relative;
+            box-shadow: 0 4px 8px var(--shadow-color);
         }
 
         .close {
             color: #aaa;
-            float: left;
+            float: right;
             font-size: 24px;
             font-weight: bold;
         }
@@ -430,40 +417,49 @@
         }
 
         .carousel {
-            display: flex;
-            overflow: hidden;
-            width: 100%;
             position: relative;
-            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 20px;
         }
 
-        .carousel img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            min-width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
             border-radius: 12px;
             cursor: pointer;
         }
 
-        .carousel-controls {
-            display: flex;
-            justify-content: space-between;
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            transform: translateY(-50%);
-        }
-
         .carousel-control {
-            background-color: var(--primary-color);
+            background-color: rgba(75, 46, 149, 0.7);
             border: none;
             padding: 10px;
             color: var(--white);
             cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            border-radius: 50%;
         }
 
         .carousel-control:hover {
-            background-color: var(--secondary-color);
+            background-color: rgba(187, 90, 238, 0.7);
+        }
+
+        #prev-btn {
+            left: 10px;
+        }
+
+        #next-btn {
+            right: 10px;
         }
 
         @media (max-width: 768px) {
@@ -471,8 +467,8 @@
                 max-width: 350px;
             }
 
-            .carousel {
-                height: 150px;
+            .carousel-images img {
+                max-height: 300px;
             }
         }
 
@@ -481,12 +477,35 @@
                 max-width: 300px;
             }
 
-            .carousel {
-                height: 120px;
+            .carousel-images img {
+                max-height: 200px;
             }
 
             #slogan {
                 color: black;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #cart {
+                width: 90%;
+                right: 5%;
+            }
+
+            #cart-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2em;
+            }
+
+            .modal-content {
+                padding: 10px;
+            }
+
+            .choose-btn {
+                padding: 10px 20px;
             }
         }
     </style>
@@ -495,11 +514,11 @@
 <body data-theme="light">
     <header>
         <img src="https://i.imgur.com/cA5muUH.png" alt="Purple Soda T-shirts Logo">
-        <h3 id="slogan"> Creamos a partir del sentir</h3>
+        <h3 id="slogan">Creamos a partir del sentir</h3>
     </header>
     <main>
         <div id="cart">
-            <h3>🛒 Carrito🍇</h3>
+            <h3>🛒 Carrito 🍇</h3>
             <div id="cart-items"></div>
             <p id="cart-total">Total: $0.00</p>
             <p>Dirección de entrega (no incluye envío):</p>
@@ -537,9 +556,9 @@
         <div class="modal-content">
             <span class="close" onclick="toggleProductModal()">&times;</span>
             <div class="carousel" id="carousel">
-                <button class="carousel-control" id="prev-btn" onclick="prevSlide()">❮</button>
                 <div class="carousel-images" id="carousel-images"></div>
-                <button class="carousel-control" id="next-btn" onclick="nextSlide()">❯</button>
+                <button class="carousel-control" id="prev-btn" onclick="prevSlide()">&#10094;</button>
+                <button class="carousel-control" id="next-btn" onclick="nextSlide()">&#10095;</button>
             </div>
             <div id="product-details"></div>
             <select id="product-size">
@@ -613,28 +632,26 @@
                 const zoomedImage = document.getElementById('zoomed-image');
                 zoomedImage.src = img;
                 zoomedImage.classList.add('show');
-                setTimeout(() => {
+                zoomedImage.addEventListener('click', () => {
                     zoomedImage.classList.remove('show');
-                }, 2000); // Hide zoomed image after 2 seconds
+                });
             };
 
             // Carousel functionality
             function updateCarousel() {
-                const carouselImages = document.getElementById('carousel-images').children;
-                for (let i = 0; i < carouselImages.length; i++) {
-                    carouselImages[i].style.display = i === currentSlide ? 'block' : 'none';
-                }
+                const carouselImages = document.getElementById('carousel-images');
+                carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
             }
 
             window.nextSlide = function () {
-                const carouselImages = document.getElementById('carousel-images').children;
-                currentSlide = (currentSlide + 1) % carouselImages.length;
+                const totalSlides = selectedProduct.images.length;
+                currentSlide = (currentSlide + 1) % totalSlides;
                 updateCarousel();
             };
 
             window.prevSlide = function () {
-                const carouselImages = document.getElementById('carousel-images').children;
-                currentSlide = (currentSlide - 1 + carouselImages.length) % carouselImages.length;
+                const totalSlides = selectedProduct.images.length;
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
                 updateCarousel();
             };
 
@@ -720,12 +737,19 @@
 
         window.onclick = function (event) {
             const productModal = document.getElementById('product-modal');
+            const zoomedImage = document.getElementById('zoomed-image');
             if (event.target === productModal) {
                 productModal.style.display = 'none';
             }
+            if (event.target === zoomedImage) {
+                zoomedImage.classList.remove('show');
+            }
         };
     </script>
-    <chat-bot platform_id="f4d8f664-c2c4-4ec2-8bee-a0e80d835c34" user_id="07cf01ec-843c-4c57-bff4-0fd994f1057a" chatbot_id="30cbb0cc-39e2-4d27-a57d-f2c6fcbee1de"><a href="https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral">chatsimple</a></chat-bot><script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
+    <chat-bot platform_id="f4d8f664-c2c4-4ec2-8bee-a0e80d835c34" user_id="07cf01ec-843c-4c57-bff4-0fd994f1057a" chatbot_id="30cbb0cc-39e2-4d27-a57d-f2c6fcbee1de">
+        <a href="https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral">chatsimple</a>
+    </chat-bot>
+    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 </body>
 
 </html>
